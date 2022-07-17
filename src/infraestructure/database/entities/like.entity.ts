@@ -1,14 +1,15 @@
+import { Like } from 'src/domain/like/like';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { User } from './user.entity';
+import { UserEntity } from './user.entity';
 
-@Entity()
-export class Like {
+@Entity({ name: 'like' })
+export class LikeEntity implements Like {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   like: boolean;
 
-  @ManyToOne(() => User, (user) => user.likes)
-  user: User;
+  @ManyToOne(() => UserEntity, (user) => user.likes)
+  user: UserEntity;
 }

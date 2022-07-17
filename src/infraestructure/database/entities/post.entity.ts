@@ -1,8 +1,9 @@
+import { Post } from 'src/domain/post/post';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { User } from './user.entity';
+import { UserEntity } from './user.entity';
 
-@Entity()
-export class Post {
+@Entity({ name: 'post' })
+export class PostEntity implements Post {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,6 +13,6 @@ export class Post {
   @Column()
   content: string;
 
-  @ManyToOne(() => User, (user) => user.posts)
-  user: User;
+  @ManyToOne(() => UserEntity, (user) => user.posts)
+  user: UserEntity;
 }

@@ -1,9 +1,10 @@
+import { User } from 'src/domain/user/user';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Like } from './like.entity';
-import { Post } from './post.entity';
+import { LikeEntity } from './like.entity';
+import { PostEntity } from './post.entity';
 
-@Entity()
-export class User {
+@Entity({ name: 'user' })
+export class UserEntity implements User {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,9 +20,9 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(() => Post, (post) => post.user)
-  posts: Post[];
+  @OneToMany(() => PostEntity, (post) => post.user)
+  posts: PostEntity[];
 
-  @OneToMany(() => Like, (like) => like.user)
-  likes: Like[];
+  @OneToMany(() => LikeEntity, (like) => like.user)
+  likes: LikeEntity[];
 }
