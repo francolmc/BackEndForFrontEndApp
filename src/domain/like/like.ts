@@ -1,3 +1,4 @@
+import { Posts } from '../post/post';
 import { User } from '../user/user';
 
 export interface Like {
@@ -5,5 +6,7 @@ export interface Like {
 
   like: boolean;
 
-  user: User;
+  user?: User;
+
+  post?: Posts;
 }
