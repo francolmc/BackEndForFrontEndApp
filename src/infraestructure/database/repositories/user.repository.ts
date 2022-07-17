@@ -17,12 +17,12 @@ export default class UserRepository implements IUserRepository {
   }
 
   public async update(email: string, user: User): Promise<User> {
-    const updateUser = await this.getUserByEmail(email);
-    if (updateUser.email === email) {
-      updateUser.firstName = user.firstName;
-      updateUser.lastName = user.lastName;
+    const editUser = await this.getUserByEmail(email);
+    if (editUser.email === email) {
+      editUser.firstName = user.firstName;
+      editUser.lastName = user.lastName;
     }
-    return this._userRepository.save(updateUser);
+    return this._userRepository.save(editUser);
   }
 
   public async getUserByEmail(email: string): Promise<User> {

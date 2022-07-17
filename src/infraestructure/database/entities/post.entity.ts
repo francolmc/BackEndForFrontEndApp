@@ -1,9 +1,9 @@
-import { Post } from 'src/domain/post/post';
+import { Posts } from 'src/domain/post/post';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { UserEntity } from './user.entity';
 
 @Entity({ name: 'post' })
-export class PostEntity implements Post {
+export class PostEntity implements Posts {
   @PrimaryGeneratedColumn()
   id: number;
 

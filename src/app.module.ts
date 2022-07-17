@@ -8,6 +8,9 @@ import { UserEntity } from './infraestructure/database/entities/user.entity';
 import { UserController } from './infraestructure/controllers/user/user.controller';
 import { UserService } from './services/user/user.service';
 import UserRepository from './infraestructure/database/repositories/user.repository';
+import { PostController } from './infraestructure/controllers/post/post.controller';
+import { PostRepository } from './infraestructure/database/repositories/post.repository';
+import { PostService } from './services/post/post.service';
 
 @Module({
   imports: [
@@ -22,9 +25,15 @@ import UserRepository from './infraestructure/database/repositories/user.reposit
       migrations: ['src/infraestructure/database/migration*{.ts,.js}'],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([UserEntity]),
+    TypeOrmModule.forFeature([UserEntity, PostEntity]),
   ],
-  controllers: [AppController, UserController],
-  providers: [AppService, UserRepository, UserService],
+  controllers: [AppController, UserController, PostController],
+  providers: [
+    AppService,
+    UserRepository,
+    UserService,
+    PostRepository,
+    PostService,
+  ],
 })
 export class AppModule {}

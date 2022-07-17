@@ -1,5 +1,5 @@
 import { Like } from '../like/like';
-import { Post } from '../post/post';
+import { Posts } from '../post/post';
 
 export interface User {
   id: number;
@@ -12,7 +12,7 @@ export interface User {
 
   password: string;
 
-  posts?: Post[];
+  posts?: Posts[];
 
   likes?: Like[];
 }
