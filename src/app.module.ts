@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostEntity } from './infraestructure/database/entities/post.entity';
 import { LikeEntity } from './infraestructure/database/entities/like.entity';
@@ -27,13 +25,7 @@ import { PostService } from './services/post/post.service';
     }),
     TypeOrmModule.forFeature([UserEntity, PostEntity]),
   ],
-  controllers: [AppController, UserController, PostController],
-  providers: [
-    AppService,
-    UserRepository,
-    UserService,
-    PostRepository,
-    PostService,
-  ],
+  controllers: [UserController, PostController],
+  providers: [UserRepository, UserService, PostRepository, PostService],
 })
 export class AppModule {}
