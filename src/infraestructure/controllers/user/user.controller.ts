@@ -13,7 +13,7 @@ export class UserController {
     return this._userService.getUser(email);
   }
 
-  @Post()
+  @Post('/register')
   public async registerUser(
     @Body() registerUserDto: RegisterUserDto,
   ): Promise<User> {
