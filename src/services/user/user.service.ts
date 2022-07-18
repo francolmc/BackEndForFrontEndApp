@@ -22,4 +22,14 @@ export class UserService {
   public async getUser(email: string): Promise<User> {
     return this._userDomain.getUserByEmail(email);
   }
+
+  public async changePassword(email: string, password: string): Promise<User> {
+    return this._userDomain.changePassword(email, password);
+  }
+
+  public async login(email: string, password: string): Promise<string> {
+    return '';
+  }
+
+  public async logout() {}
 }

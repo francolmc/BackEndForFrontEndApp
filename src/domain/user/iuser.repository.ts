@@ -6,4 +6,6 @@ export default interface IUserRepository {
   update(email: string, user: User): Promise<User>;
 
   getUserByEmail(email: string): Promise<User>;
+
+  changePassword(email: string, user: User): Promise<User>;
 }

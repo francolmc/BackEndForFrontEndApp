@@ -7,7 +7,10 @@ import {
   Param,
   Post,
   Put,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Posts } from 'src/domain/post/post';
 import { PostService } from 'src/services/post/post.service';
 import { EditPostDto } from './edit-post.dto';
@@ -18,11 +21,13 @@ export class PostController {
   public constructor(private readonly _postService: PostService) {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   public async getAllPost(): Promise<Posts[]> {
     return this._postService.getAllPosts();
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   public async getPostById(@Param('id') id: number): Promise<Posts> {
     const result = await this._postService.showPost(id);
     if (!result) throw new NotFoundException();
@@ -30,6 +35,7 @@ export class PostController {
   }
 
   @Get('/user/:email')
+  @UseGuards(JwtAuthGuard)
   public async getPostsByUserEmail(
     @Param('email') email: string,
   ): Promise<Posts[]> {
@@ -37,24 +43,30 @@ export class PostController {
   }
 
   @Post()
-  public async createNewPost(@Body() post: NewPostDto): Promise<Posts> {
+  @UseGuards(JwtAuthGuard)
+  public async createNewPost(
+    @Body() post: NewPostDto,
+    @Request() req: any,
+  ): Promise<Posts> {
     const { title, content } = post;
-    return this._postService.createNewPost('franco.morales@outlook.com', {
+    return this._postService.createNewPost(req.username, {
       id: 0,
       title,
       content,
     });
   }
 
-  @Put('/:id')
+  @Put('/:id/update')
+  @UseGuards(JwtAuthGuard)
   public async editPost(
     @Param('id') id: number,
     @Body() editPost: EditPostDto,
+    @Request() req: any,
   ): Promise<Posts> {
     const { title, content } = editPost;
     const getPostForConfirmExist = await this._postService.showPost(id);
     if (!getPostForConfirmExist) throw new NotFoundException();
-    return this._postService.editPost('franco.morales@outlook.com', id, {
+    return this._postService.editPost(req.username, id, {
       id: 0,
       title,
       content,
@@ -62,9 +74,13 @@ export class PostController {
   }
 
   @Delete(':id')
-  public async deletePost(@Param('id') id: number): Promise<boolean> {
+  @UseGuards(JwtAuthGuard)
+  public async deletePost(
+    @Param('id') id: number,
+    @Request() req: any,
+  ): Promise<boolean> {
     const getPostForConfirmExist = await this._postService.showPost(id);
     if (!getPostForConfirmExist) throw new NotFoundException();
-    return this._postService.deletePost('franco.morales@outlook.com', id);
+    return this._postService.deletePost(req.username, id);
   }
 }

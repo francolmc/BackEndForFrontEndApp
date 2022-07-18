@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Put,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { LikeService } from 'src/services/like/like.service';
 
 @Controller('/api/like')
@@ -6,16 +14,25 @@ export class LikeController {
   public constructor(private readonly _likeService: LikeService) {}
 
   @Put('/post/:postId/like')
-  public async likePost(@Param('postId') postId: number): Promise<boolean> {
-    return this._likeService.likePost(postId, 'franco.morales@outlook.com');
+  @UseGuards(JwtAuthGuard)
+  public async likePost(
+    @Param('postId') postId: number,
+    @Request() req: any,
+  ): Promise<boolean> {
+    return this._likeService.likePost(postId, req.username);
   }
 
   @Put('/post/:postId/dislike')
-  public async disLikePost(@Param('postId') postId: number): Promise<boolean> {
-    return this._likeService.disLikePost(postId, 'franco.morales@outlook.com');
+  @UseGuards(JwtAuthGuard)
+  public async disLikePost(
+    @Param('postId') postId: number,
+    @Request() req: any,
+  ): Promise<boolean> {
+    return this._likeService.disLikePost(postId, req.username);
   }
 
   @Get('/post/:postId/count')
+  @UseGuards(JwtAuthGuard)
   public async countLikesPost(
     @Param('postId') postId: number,
   ): Promise<number> {

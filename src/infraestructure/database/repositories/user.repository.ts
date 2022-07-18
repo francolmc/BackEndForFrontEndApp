@@ -12,6 +12,14 @@ export default class UserRepository implements IUserRepository {
     private readonly _userRepository: Repository<UserEntity>,
   ) {}
 
+  public async changePassword(email: string, user: User): Promise<User> {
+    const editUser = await this.getUserByEmail(email);
+    if (editUser.email === email) {
+      editUser.password = user.password;
+    }
+    return this._userRepository.save(editUser);
+  }
+
   public async create(user: User): Promise<User> {
     return this._userRepository.save(user);
   }

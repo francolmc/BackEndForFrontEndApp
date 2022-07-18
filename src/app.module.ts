@@ -12,6 +12,10 @@ import { PostService } from './services/post/post.service';
 import { LikeRepository } from './infraestructure/database/repositories/like.repository';
 import { LikeService } from './services/like/like.service';
 import { LikeController } from './infraestructure/controllers/like/like.controller';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './auth/constants';
+import { AuthService } from './auth/auth.service';
+import { JwtStrategy } from './auth/jwt.strategy';
 
 @Module({
   imports: [
@@ -27,6 +31,10 @@ import { LikeController } from './infraestructure/controllers/like/like.controll
       synchronize: true,
     }),
     TypeOrmModule.forFeature([UserEntity, PostEntity, LikeEntity]),
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '60m' },
+    }),
   ],
   controllers: [UserController, PostController, LikeController],
   providers: [
@@ -36,6 +44,8 @@ import { LikeController } from './infraestructure/controllers/like/like.controll
     PostService,
     LikeRepository,
     LikeService,
+    JwtStrategy,
+    AuthService,
   ],
 })
 export class AppModule {}
