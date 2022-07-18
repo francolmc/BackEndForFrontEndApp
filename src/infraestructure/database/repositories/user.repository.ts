@@ -14,9 +14,7 @@ export default class UserRepository implements IUserRepository {
 
   public async changePassword(email: string, user: User): Promise<User> {
     const editUser = await this.getUserByEmail(email);
-    if (editUser.email === email) {
-      editUser.password = user.password;
-    }
+    editUser.password = user.password;
     return this._userRepository.save(editUser);
   }
 

@@ -16,19 +16,22 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
 import { AuthService } from './auth/auth.service';
 import { JwtStrategy } from './auth/jwt.strategy';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'masterdba',
-      database: 'database_front',
+      host: process.env.DATABASE_SERVER,
+      port: +process.env.DATABASE_PORT,
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
       entities: [UserEntity, PostEntity, LikeEntity],
       migrations: ['src/infraestructure/database/migration*{.ts,.js}'],
       synchronize: true,
+      logging: true,
     }),
     TypeOrmModule.forFeature([UserEntity, PostEntity, LikeEntity]),
     JwtModule.register({

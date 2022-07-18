@@ -6,7 +6,7 @@ export default class UserDomain {
   public constructor(private readonly _userRepository: IUserRepository) {}
 
   public async create(user: User): Promise<User> {
-    user.password = await bcrypt.hash(user.password, 10);
+    user.password = await bcrypt.hash(user.password, +process.env.BCRYPT_SALT);
     return await this._userRepository.create(user);
   }
 
@@ -24,7 +24,11 @@ export default class UserDomain {
 
   public async changePassword(email: string, password: string): Promise<User> {
     const user = await this._userRepository.getUserByEmail(email);
-    user.password = await bcrypt.hash(password, 10);
+    console.log(user);
+    user.password = await bcrypt.hash(password, +process.env.BCRYPT_SALT);
+    console.log(+process.env.BCRYPT_SALT);
+    console.log(password);
+    console.log(user.password);
     return this._userRepository.changePassword(email, user);
   }
 
