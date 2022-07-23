@@ -66,7 +66,7 @@ export class PostController {
     const { title, content } = editPost;
     const getPostForConfirmExist = await this._postService.showPost(id);
     if (!getPostForConfirmExist) throw new NotFoundException();
-    return this._postService.editPost(req.username, id, {
+    return this._postService.editPost(req.user.username, id, {
       id: 0,
       title,
       content,
