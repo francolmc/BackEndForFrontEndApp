@@ -42,4 +42,8 @@ export class PostService {
   public async deletePost(ownerEmail: string, id: number): Promise<boolean> {
     return this._postDomain.delete(ownerEmail, id);
   }
+
+  public async getPostByUserEmailWithCountLikes(email: string): Promise<Posts[]> {
+    return this._postDomain.getPostByUserEmailWithCountLikes(email);
+  }
 }

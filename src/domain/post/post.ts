@@ -11,4 +11,6 @@ export interface Posts {
   user?: User;
 
   like?: Like[];
+
+  countLikes?: number;
 }

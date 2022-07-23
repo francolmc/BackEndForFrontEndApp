@@ -42,6 +42,14 @@ export class PostController {
     return this._postService.getPostByUserEmail(email);
   }
 
+  @Get('/user/:email/with-count-likes')
+  @UseGuards(JwtAuthGuard)
+  public async getPostsByUserEmailWithCountLikes(
+    @Param('email') email: string,
+  ): Promise<Posts[]> {
+    return this._postService.getPostByUserEmailWithCountLikes(email);
+  }
+
   @Post()
   @UseGuards(JwtAuthGuard)
   public async createNewPost(
