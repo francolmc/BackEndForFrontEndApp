@@ -22,7 +22,11 @@ export class PostRepository implements IPostRepository {
     "FROM " +
     "  post " +
     "  LEFT JOIN `like` ON post.id = `like`.postId " +
-    "  LEFT JOIN `user` ON post.userId = `user`.id";
+    "  LEFT JOIN `user` ON post.userId = `user`.id " + 
+    "GROUP BY " +
+    "  post.id, " +
+    "  post.title, "+ 
+    "  post. `content`";
 
     return this._postRepository.query(sql);
   }
