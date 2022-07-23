@@ -21,8 +21,8 @@ export class PostRepository implements IPostRepository {
     "  SUM(`like`.`like`) AS countLikes " +
     "FROM " +
     "  post " +
-    "  INNER JOIN `like` ON post.id = `like`.postId " +
-    "  INNER JOIN `user` ON post.userId = `user`.id";
+    "  LEFT JOIN `like` ON post.id = `like`.postId " +
+    "  LEFT JOIN `user` ON post.userId = `user`.id";
 
     return this._postRepository.query(sql);
   }
