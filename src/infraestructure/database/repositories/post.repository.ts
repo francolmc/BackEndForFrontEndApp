@@ -12,6 +12,23 @@ export class PostRepository implements IPostRepository {
     private readonly _postRepository: Repository<PostEntity>,
   ) {}
 
+  public async getPostsByUserWithCountLikes(email: string): Promise<Posts[]> {
+    const sql = "" + 
+    "SELECT " +
+    "  post.id, " +
+    "  post.title, " +
+    "  post. `content`, " +
+    "  SUM(`like`.`like`) AS countLikes " +
+    "FROM " +
+    "  post " +
+    "  INNER JOIN `like` ON post.id = `like`.postId " +
+    "  INNER JOIN `user` ON post.userId = `user`.id " +
+    "WHERE " +
+    "  `user`.email = 'franco.morales@outlook.com'";
+
+    return this._postRepository.query(sql);
+  }
+
   public async create(post: Posts): Promise<Posts> {
     return this._postRepository.save(post);
   }
