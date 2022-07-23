@@ -48,7 +48,7 @@ export class PostDomain {
     return this._postRepository.getAllPosts();
   }
 
-  public async getPostByUserEmailWithCountLikes(email: string): Promise<Posts[]> {
-    return this._postRepository.getPostsByUserWithCountLikes(email);
+  public async getAllPostsWithCountLikes(): Promise<Posts[]> {
+    return this._postRepository.getAllPostsWithCountLikes();
   }
 }

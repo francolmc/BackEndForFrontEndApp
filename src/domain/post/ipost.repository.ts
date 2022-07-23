@@ -7,5 +7,5 @@ export interface IPostRepository {
   getPostsByUser(email: string): Promise<Posts[]>;
   getAllPosts(): Promise<Posts[]>;
   getPostById(id: number): Promise<Posts>;
-  getPostsByUserWithCountLikes(email: string): Promise<Posts[]>
+  getAllPostsWithCountLikes(): Promise<Posts[]>
 }
