@@ -43,7 +43,7 @@ export class PostService {
     return this._postDomain.delete(ownerEmail, id);
   }
 
-  public async getPostByUserEmailWithCountLikes(email: string): Promise<Posts[]> {
-    return this._postDomain.getPostByUserEmailWithCountLikes(email);
+  public async getAllPostsWithCountLikes(): Promise<Posts[]> {
+    return this._postDomain.getAllPostsWithCountLikes();
   }
 }

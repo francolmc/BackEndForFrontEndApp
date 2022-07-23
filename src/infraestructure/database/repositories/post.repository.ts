@@ -12,7 +12,7 @@ export class PostRepository implements IPostRepository {
     private readonly _postRepository: Repository<PostEntity>,
   ) {}
 
-  public async getPostsByUserWithCountLikes(email: string): Promise<Posts[]> {
+  public async getAllPostsWithCountLikes(): Promise<Posts[]> {
     const sql = "" + 
     "SELECT " +
     "  post.id, " +
@@ -22,9 +22,7 @@ export class PostRepository implements IPostRepository {
     "FROM " +
     "  post " +
     "  INNER JOIN `like` ON post.id = `like`.postId " +
-    "  INNER JOIN `user` ON post.userId = `user`.id " +
-    "WHERE " +
-    "  `user`.email = 'franco.morales@outlook.com'";
+    "  INNER JOIN `user` ON post.userId = `user`.id";
 
     return this._postRepository.query(sql);
   }
