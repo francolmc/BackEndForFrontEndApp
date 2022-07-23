@@ -46,14 +46,14 @@ export class UserController {
     });
   }
 
-  @Put(':email/update')
+  @Put('/:email/update')
   @UseGuards(JwtAuthGuard)
   public async editUser(
     @Param('email') email: string,
     @Body() editUser: EditUserDto,
     @Request() req: any,
   ): Promise<User> {
-    if (email !== req.username) throw new UnauthorizedException();
+    if (email !== req.user.username) throw new UnauthorizedException();
     const { firstName, lastName, password } = editUser;
     return this._userService.editUser(email, {
       id: 0,
