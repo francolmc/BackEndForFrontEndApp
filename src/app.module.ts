@@ -17,6 +17,7 @@ import { jwtConstants } from './auth/constants';
 import { AuthService } from './auth/auth.service';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { ConfigModule } from '@nestjs/config';
+import { TextoController } from './infraestructure/controllers/texto/texto.controller';
 
 @Module({
   imports: [
@@ -39,7 +40,12 @@ import { ConfigModule } from '@nestjs/config';
       signOptions: { expiresIn: '60m' },
     }),
   ],
-  controllers: [UserController, PostController, LikeController],
+  controllers: [
+    UserController,
+    PostController,
+    LikeController,
+    TextoController,
+  ],
   providers: [
     UserRepository,
     UserService,
